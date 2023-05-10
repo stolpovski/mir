@@ -9,6 +9,7 @@
     <canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%; background: #231F20"></canvas>
     <script src="Build/mir.loader.js"></script>
     <script>
+        console.log = function () { };
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
