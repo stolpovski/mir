@@ -24,13 +24,13 @@ public class Cosmonaut : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddRelativeForce(Vector3.forward * forward * force, ForceMode.Impulse);
-        rb.AddRelativeForce(Vector3.up * up * force, ForceMode.Impulse);
-        rb.AddRelativeForce(Vector3.right * side * force, ForceMode.Impulse);
+        rb.AddRelativeForce(forward * force * Vector3.forward, ForceMode.Impulse);
+        rb.AddRelativeForce(up * force * Vector3.up, ForceMode.Impulse);
+        rb.AddRelativeForce(side * force * Vector3.right, ForceMode.Impulse);
 
-        rb.AddRelativeTorque(Vector3.left * pitch * torque, ForceMode.Impulse);
-        rb.AddRelativeTorque(Vector3.up * yaw * torque, ForceMode.Impulse);
-        rb.AddRelativeTorque(Vector3.back * roll * torque, ForceMode.Impulse);
+        rb.AddRelativeTorque(pitch * torque * Vector3.left, ForceMode.Impulse);
+        rb.AddRelativeTorque(yaw * torque * Vector3.up, ForceMode.Impulse);
+        rb.AddRelativeTorque(roll * torque * Vector3.back, ForceMode.Impulse);
     }
 
     public void Forward(InputAction.CallbackContext context)
