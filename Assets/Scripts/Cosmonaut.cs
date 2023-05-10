@@ -33,12 +33,6 @@ public class Cosmonaut : MonoBehaviour
         rb.AddRelativeTorque(Vector3.back * roll * torque, ForceMode.Impulse);
     }
 
-    private void Update()
-    {
-        //Debug.Log(rb.velocity.magnitude);
-        //Debug.Log(rb.angularVelocity.magnitude);
-    }
-
     public void Forward(InputAction.CallbackContext context)
     {
         forward = context.ReadValue<float>();
