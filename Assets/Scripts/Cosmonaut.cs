@@ -5,43 +5,67 @@ public class Cosmonaut : MonoBehaviour
 {
     Rigidbody rb;
     
-    float thrust;
+    float forward;
+    float up;
+    float side;
+
+    float pitch;
     float yaw;
-    float lift;
+    float roll;
 
     public float force = 1f;
     public float torque = 0.001f;
     
     void Start()
     {
+        Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
-        rb.AddRelativeForce(Vector3.forward * thrust * force, ForceMode.Impulse);
-        rb.AddRelativeForce(Vector3.up * lift * force, ForceMode.Impulse);
+        rb.AddRelativeForce(Vector3.forward * forward * force, ForceMode.Impulse);
+        rb.AddRelativeForce(Vector3.up * up * force, ForceMode.Impulse);
+        rb.AddRelativeForce(Vector3.right * side * force, ForceMode.Impulse);
+
+        rb.AddRelativeTorque(Vector3.left * pitch * torque, ForceMode.Impulse);
         rb.AddRelativeTorque(Vector3.up * yaw * torque, ForceMode.Impulse);
+        rb.AddRelativeTorque(Vector3.back * roll * torque, ForceMode.Impulse);
     }
 
     private void Update()
     {
         //Debug.Log(rb.velocity.magnitude);
-        Debug.Log(rb.angularVelocity.magnitude);
+        //Debug.Log(rb.angularVelocity.magnitude);
     }
 
-    public void Thrust(InputAction.CallbackContext context)
+    public void Forward(InputAction.CallbackContext context)
     {
-        thrust = context.ReadValue<float>();
+        forward = context.ReadValue<float>();
     }
 
-    public void Lift(InputAction.CallbackContext context)
+    public void Up(InputAction.CallbackContext context)
     {
-        lift = context.ReadValue<float>();
+        up = context.ReadValue<float>();
+    }
+
+    public void Side(InputAction.CallbackContext context)
+    {
+        side = context.ReadValue<float>();
+    }
+
+    public void Pitch(InputAction.CallbackContext context)
+    {
+        pitch = context.ReadValue<float>();
     }
 
     public void Yaw(InputAction.CallbackContext context)
     {
         yaw = context.ReadValue<float>();
+    }
+
+    public void Roll(InputAction.CallbackContext context)
+    {
+        roll = context.ReadValue<float>();
     }
 }
