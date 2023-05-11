@@ -15,11 +15,13 @@ public class Cosmonaut : MonoBehaviour
 
     public float force = 1f;
     public float torque = 0.001f;
+    AudioSource sfx;
     
     void Start()
     {
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+        sfx = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -61,5 +63,17 @@ public class Cosmonaut : MonoBehaviour
     public void Roll(InputAction.CallbackContext context)
     {
         roll = context.ReadValue<float>();
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(rb.velocity.magnitude);
+        
+        if (!sfx.isPlaying)
+        {
+            sfx.volume = rb.velocity.magnitude;
+            sfx.Play();
+        }
+            
     }
 }
