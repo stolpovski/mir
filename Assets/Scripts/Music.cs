@@ -8,6 +8,26 @@ public class Music : MonoBehaviour
     Object[] music;
     bool hasStopped = true;
     float maxVol = 0.4f;
+
+    public bool HasStopped()
+    {
+        return hasStopped;
+    }
+
+    public float GetVolume()
+    {
+        return audioPlayer.volume;
+    }
+
+    public int GetSong()
+    {
+        return i + 1;
+    }
+
+    public float GetTime()
+    {
+        return audioPlayer.time;
+    }
     
     void Awake()
     {
