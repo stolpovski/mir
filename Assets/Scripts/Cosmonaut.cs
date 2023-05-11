@@ -16,12 +16,14 @@ public class Cosmonaut : MonoBehaviour
     public float force = 1f;
     public float torque = 0.001f;
     AudioSource sfx;
+    Light flashlight;
     
     void Start()
     {
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         sfx = GetComponent<AudioSource>();
+        flashlight = GetComponent<Light>();
     }
 
     void FixedUpdate()
@@ -75,5 +77,15 @@ public class Cosmonaut : MonoBehaviour
             sfx.Play();
         }
             
+    }
+
+    public void OnFlashlight(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            flashlight.enabled = !flashlight.enabled;
+            Debug.Log(flashlight.enabled);
+        }
+        
     }
 }
