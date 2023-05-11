@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Music : MonoBehaviour
 {
-    new AudioSource audio;
+    AudioSource audioPlayer;
     int i = 0;
     Object[] music;
     bool hasStopped = true;
@@ -11,20 +11,15 @@ public class Music : MonoBehaviour
     
     void Awake()
     {
-        audio = GetComponent<AudioSource>();
-        audio.volume = maxVol;
+        audioPlayer = GetComponent<AudioSource>();
+        audioPlayer.volume = maxVol;
         music = Resources.LoadAll("Music", typeof(AudioClip));
-        audio.clip = music[i] as AudioClip;
-    }
-
-    private void Start()
-    {
-        //PlayNext();
+        audioPlayer.clip = music[i] as AudioClip;
     }
 
     void Update()
     {
-        if (!hasStopped && !audio.isPlaying)
+        if (!hasStopped && !audioPlayer.isPlaying)
         {
             PlayNext();
         }
@@ -35,11 +30,11 @@ public class Music : MonoBehaviour
         i++;
         if (i == music.Length) i = 0;
         Debug.Log(i);
-        audio.clip = music[i] as AudioClip;
+        audioPlayer.clip = music[i] as AudioClip;
         
         if (!hasStopped)
         {
-            audio.Play();
+            audioPlayer.Play();
         }
         
     }
@@ -49,11 +44,11 @@ public class Music : MonoBehaviour
         i--;
         if (i < 0) i = music.Length - 1;
         Debug.Log(i);
-        audio.clip = music[i] as AudioClip;
+        audioPlayer.clip = music[i] as AudioClip;
 
         if (!hasStopped)
         {
-            audio.Play();
+            audioPlayer.Play();
         }
 
     }
@@ -79,14 +74,14 @@ public class Music : MonoBehaviour
         if (context.performed)
         {
             hasStopped = !hasStopped;
-            Debug.Log(audio.clip.length + " time: " + audio.time);
-            if (!audio.isPlaying)
+            Debug.Log(audioPlayer.clip.length + " time: " + audioPlayer.time);
+            if (!audioPlayer.isPlaying)
             {
-                audio.Play();
+                audioPlayer.Play();
             }
             else
             {
-                audio.Pause();
+                audioPlayer.Pause();
             }
         }
         
@@ -94,6 +89,6 @@ public class Music : MonoBehaviour
 
     public void OnChangeVolume(InputAction.CallbackContext context)
     {
-        audio.volume = Mathf.Clamp(audio.volume + context.ReadValue<float>() * 0.02f, 0, maxVol);
+        audioPlayer.volume = Mathf.Clamp(audioPlayer.volume + context.ReadValue<float>() * 0.02f, 0, maxVol);
     }
 }
