@@ -101,7 +101,7 @@ public class Music : MonoBehaviour
             }
             else
             {
-                audioPlayer.Pause();
+                audioPlayer.Stop();
             }
         }
         
